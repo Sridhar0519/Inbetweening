@@ -28,7 +28,38 @@ docker compose run --rm train
 ```
 
 Training artifacts are written to `./training_output` on your host.
+### GPU Training Image
 
+If your peer has an NVIDIA GPU and the NVIDIA Container Toolkit installed, build the GPU image instead:
+
+```bash
+docker compose build --no-cache train-gpu
+```
+
+Then run training with the GPU service (use `--gpus all` at runtime):
+
+```bash
+docker compose run --rm --gpus all train-gpu
+```
+
+The dataset should be mounted by your peer into `./output` on the host (or via `DATASET_DIR` override).
+
+#### Push the GPU image to a Docker registry
+
+Build and tag the image:
+
+```bash
+docker compose build --no-cache train-gpu
+docker tag shot-segregation-train:gpu <your-docker-repo>/shot-segregation-train:gpu
+```
+
+Push it to your repository:
+
+```bash
+docker push <your-docker-repo>/shot-segregation-train:gpu
+```
+
+Then your peer can pull and run it with the same mounted dataset/output volumes.
 Optional path overrides:
 
 ```bash
