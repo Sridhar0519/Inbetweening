@@ -1,0 +1,15 @@
+services:
+  train:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: shot-segregation-train:cpu
+    working_dir: /workspace
+    environment:
+      OMP_NUM_THREADS: ${OMP_NUM_THREADS:-4}
+      MKL_NUM_THREADS: ${MKL_NUM_THREADS:-4}
+    volumes:
+      - ${DATASET_DIR:-./output}:/workspace/output:ro
+      - ${TRAINING_DIR:-./training_output}:/workspace/training_output
+      - ./weights:/workspace/weights:ro
+    shm_size: "1gb"

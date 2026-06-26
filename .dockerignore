@@ -1,0 +1,36 @@
+# Git and local tooling
+.git
+.gitignore
+.vscode
+.idea
+
+# Python caches/environments
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+venv
+.venv
+env
+
+# Generated artifacts
+output
+training_output
+test_training
+wheels
+*.pt
+*.pth
+*.log
+*.tar.gz
+*.zip
+
+# Notebook and editor cache
+.ipynb_checkpoints
+.pytest_cache
+
+# Large source media
+*.mp4
+*.avi
+*.mkv
+*.mov
+*.webm

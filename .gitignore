@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project output
+output/
+input/
+*.mp4
+*.avi
+*.mkv
+
+# Training artifacts
+training_output/
+test_training/
+*.pt
+*.pth
+*.log
+
+# Transfer/offline artifacts
+wheels/
+*.tar.gz
+*.zip
+
+# Notebook/runtime caches
+.ipynb_checkpoints/
+.pytest_cache/
