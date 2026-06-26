@@ -16,8 +16,10 @@ Prerequisites:
 3. Build the training image:
 
 ```bash
-docker compose build train
+docker compose build --no-cache train
 ```
+
+> Use `--no-cache` to ensure a clean build. The image installs CPU-only PyTorch and training dependencies (no system packages required).
 
 4. Start training:
 
@@ -36,15 +38,31 @@ cp .env.example .env
 
 ### Run with custom training options
 
-Pass any `model.train` arguments after the service name:
+Pass any `model.train` arguments after the service name (these override the defaults in `CMD`):
 
 ```bash
 docker compose run --rm train \
   --epochs 50 \
   --batch-size 2 \
   --image-size 128 \
+  --num-workers 0 \
   --save-every 5 \
   --sample-every 5
+```
+
+Default CMD runs `--fast-cpu` mode (image-size 64, batch-size 4, base-features 32, no perceptual loss) which is safe for CPU-only environments.
+
+### Monitor training logs
+
+```bash
+# Run in background
+docker compose run -d --name training train
+
+# Follow logs live
+docker logs -f training
+
+# Or read log files written to disk
+tail -f training_output/logs/$(ls -t training_output/logs/ | head -1)
 ```
 
 ## Repository Layout
@@ -52,7 +70,7 @@ docker compose run --rm train \
 - `main.py`: dataset creation pipeline (video -> shots -> keyframes -> segments)
 - `model/train.py`: GAN training entrypoint
 - `docker-compose.yml`: one-command training workflow
-- `Dockerfile`: CPU training image
+- `Dockerfile`: CPU-only training image (Python 3.11-slim, no system package installs)
 
 ## Create Dataset (Optional)
 

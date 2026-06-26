@@ -6,14 +6,6 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /workspace
 
-# Minimal system libs for Python image stack compatibility.
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libglib2.0-0 \
-    libsm6 \
-    libxext6 \
-    libxrender1 \
-    && rm -rf /var/lib/apt/lists/*
-
 COPY requirements_train.txt /tmp/requirements_train.txt
 
 # CPU-only PyTorch + training dependencies.
